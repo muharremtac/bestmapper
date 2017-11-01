@@ -1,35 +1,30 @@
 package com.muharremtac.utils.mapper.core;
 
 import com.muharremtac.utils.mapper.EntityField;
-import com.muharremtac.utils.mapper.samples.model.ModelPerson;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 public class BestMapperImpl extends BestMapper{
 
     @Override
-    public Object mapFromTo(Object from, Object to) throws Exception {
+    public Object mapFromTo(Object fromObject, Class toClass) throws Exception {
         Object returnObject = null;
+        Class<?> clazz = Class.forName(toClass.getName());
+        returnObject = clazz.newInstance();
 
-        Class<?> fromObjectClass = from.getClass();
-        Class<?> toObjectClass = to.getClass();
+        Class<?> fromObjectClass = fromObject.getClass();
 
-        for (Field field : toObjectClass.getDeclaredFields()) {
+        for (Field field : toClass.getDeclaredFields()) {
             Annotation annotation = field.getAnnotation(EntityField.class);
             EntityField entityField = (EntityField)annotation;
+            Field fromObjectField = fromObjectClass.getDeclaredField(entityField.entityField());
+            fromObjectField.setAccessible(true);
+            Object value = fromObjectField.get(fromObject);
 
-            Class<?> clazz = Class.forName(to.getClass().getName());
-            returnObject = clazz.newInstance();
-
-            Field toField = fromObjectClass.getDeclaredField(entityField.entityField());
-
-            toField.set(toField, entityField.entityField());
-
-
-
-            System.out.println(field.getName());
+            Field toField = toClass.getDeclaredField(field.getName());
+            toField.setAccessible(true);
+            toField.set(returnObject, value);
         }
 
          return returnObject;
