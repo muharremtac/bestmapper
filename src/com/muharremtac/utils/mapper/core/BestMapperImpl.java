@@ -1,6 +1,6 @@
 package com.muharremtac.utils.mapper.core;
 
-import com.muharremtac.utils.mapper.EntityField;
+import com.muharremtac.utils.mapper.annotations.EntityField;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

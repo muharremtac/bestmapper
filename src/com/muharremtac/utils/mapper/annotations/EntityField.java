@@ -1,4 +1,4 @@
-package com.muharremtac.utils.mapper;
+package com.muharremtac.utils.mapper.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

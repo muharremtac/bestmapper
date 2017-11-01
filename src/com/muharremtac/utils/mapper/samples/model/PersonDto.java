@@ -1,6 +1,6 @@
 package com.muharremtac.utils.mapper.samples.model;
 
-import com.muharremtac.utils.mapper.EntityField;
+import com.muharremtac.utils.mapper.annotations.EntityField;
 
 public class PersonDto {
 
