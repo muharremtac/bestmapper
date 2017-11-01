@@ -15,4 +15,9 @@ public class ModelPerson {
     public void setIsim(String isim) {
         this.isim = isim;
     }
+
+    @Override
+    public String toString() {
+        return isim;
+    }
 }
