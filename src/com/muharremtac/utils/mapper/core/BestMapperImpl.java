@@ -23,6 +23,13 @@ public class BestMapperImpl extends BestMapper{
             Object value = fromObjectField.get(fromObject);
 
             Field toField = toClass.getDeclaredField(field.getName());
+
+            Class<?> fromFieldType = fromObjectField.getType();
+            Class<?> toFieldType = toField.getType();
+            if(fromFieldType.equals(toFieldType)==false){
+                value = mapFromTo(value, toFieldType);
+            }
+
             toField.setAccessible(true);
             toField.set(returnObject, value);
         }
